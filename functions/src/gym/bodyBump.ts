@@ -15,7 +15,11 @@ const fetchEventProperty = async (
   return ((await eventNameTextContent.jsonValue()) as string).trim();
 };
 
-export const register = async (day: number, account: string, password: string) => {
+export const register = async (
+  day: number,
+  account: string,
+  password: string
+) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(REEBOK_URL);
