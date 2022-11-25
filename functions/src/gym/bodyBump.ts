@@ -1,5 +1,8 @@
 import * as puppeteer from "puppeteer";
 
+// TODO: Updagra puppeteer and use this https://github.com/cenfun/puppeteer-chromium-resolver
+// Maybe not worth it?
+
 const EVENT_NAME = "Body Pump";
 const REEBOK_URL =
   "https://reebokfitness-tjarnarvellir.cms.efitness.com.pl/Login/SystemLogin?returnurl=https://reebokfitness-tjarnarvellir.cms.efitness.com.pl/calendar";

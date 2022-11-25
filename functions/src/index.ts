@@ -13,8 +13,8 @@ const db = getFirestore();
 const pubSubClient: PubSub = new PubSub();
 
 export const bodyBumpCrontab = pubsub
-  .schedule("0 9 * * *")
-  .timeZone("Atlantic/Reykjavik") // Users can choose timezone - default is America/Los_Angeles
+  .schedule("00 08 * * *")
+  .timeZone("Atlantic/Reykjavik")
   .onRun(async () => {
     await getReebokAccounts(db, pubSubClient);
   });
@@ -27,7 +27,7 @@ export const characterLeftPubSub = pubsub
 
     const date = new Date(timestamp);
     const day = date.getDay();
-    console.log(day);
+    console.log(`Registering account: ${account} - ${day}`);
     // await register(day == 0 ? 7 : day, account, password);
 
     await register(7, account, password);
