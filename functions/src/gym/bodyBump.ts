@@ -1,6 +1,8 @@
 import * as puppeteer from "puppeteer";
+import { PubSub } from "@google-cloud/pubsub";
+import { PubSubRegistrationSuccessfulTopic } from "../constants";
 
-// TODO: Updagra puppeteer and use this https://github.com/cenfun/puppeteer-chromium-resolver
+// TODO: Upgrade puppeteer and use this https://github.com/cenfun/puppeteer-chromium-resolver
 // Maybe not worth it?
 
 const EVENT_NAME = "Body Pump";
@@ -19,6 +21,7 @@ const fetchEventProperty = async (
 };
 
 export const register = async (
+  pubSub: PubSub,
   day: number,
   account: string,
   password: string
@@ -39,6 +42,11 @@ export const register = async (
   );
 
   const events = await xpath[0].$$("div");
+
+  if (events.length == 0) {
+    console.log("No events found for today")
+  }
+
   for (let event of events) {
     const eventName = await fetchEventProperty(event, ".event_name");
     const eventLength = await fetchEventProperty(event, ".eventlength");
@@ -69,6 +77,14 @@ export const register = async (
       await overlay.waitForSelector("#calendar-register-for-success");
 
       console.log(eventName, eventLength, instructor);
+
+      const payload = { eventName, eventLength, instructor };
+      const outboundMessage = { json: payload, attributes: {} };
+      const message = await pubSub
+        .topic(PubSubRegistrationSuccessfulTopic)
+        .publishMessage(outboundMessage);
+
+      console.log(message);
     }
   }
 

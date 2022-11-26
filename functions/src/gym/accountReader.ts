@@ -1,4 +1,4 @@
-import { PubSub, Attributes } from "@google-cloud/pubsub";
+import { PubSub } from "@google-cloud/pubsub";
 import { PubSubRebookRegisterAccountTopic } from "../constants";
 
 export const getReebokAccounts = async (
@@ -16,8 +16,7 @@ export const getReebokAccounts = async (
 
     console.log(`Sending payload to pubsub: ${payload.username}`);
 
-    const customAtt: Attributes = {};
-    const outboundMessage = { json: payload, attributes: customAtt };
+    const outboundMessage = { json: payload, attributes: {} };
     const message = await pubSub
       .topic(PubSubRebookRegisterAccountTopic)
       .publishMessage(outboundMessage);
