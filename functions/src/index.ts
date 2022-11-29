@@ -38,7 +38,7 @@ export const registerAccountPubSub = runWith({
   });
 
 export const registrationSuccessfulPubSub = runWith({
-  secrets: ["Telegram"],
+  secrets: ["TELEGRAM_BOT_TOKEN"],
 })
   .pubsub.topic(PubSubRegistrationSuccessfulTopic)
   .onPublish(async ({ json }, { timestamp }) => {

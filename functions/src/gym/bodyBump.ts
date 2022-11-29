@@ -4,7 +4,6 @@ import { PubSubRegistrationSuccessfulTopic } from "../constants";
 
 // TODO: Upgrade puppeteer and use this https://github.com/cenfun/puppeteer-chromium-resolver
 // Maybe not worth it?
-
 const EVENT_NAME = "Body Pump";
 const REEBOK_URL =
   "https://reebokfitness-tjarnarvellir.cms.efitness.com.pl/Login/SystemLogin?returnurl=https://reebokfitness-tjarnarvellir.cms.efitness.com.pl/calendar";
@@ -44,7 +43,7 @@ export const register = async (
   const events = await xpath[0].$$("div");
 
   if (events.length == 0) {
-    console.log("No events found for today")
+    console.log("No events found for today");
   }
 
   for (let event of events) {

@@ -6,7 +6,7 @@ export const notifyRegistration = async (
   eventLength: String,
   instructor: String
 ) => {
-  const token = process.env.Telegram;
+  const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {
     console.error("Telegram token not found");
     return;
@@ -14,12 +14,12 @@ export const notifyRegistration = async (
 
   const bot = new Telegraf(token);
 
-  bot.telegram.sendMessage(
-    "1546842788",
-    `✅ *Registered* ✅\n🏋️ *${eventName}*\n🕣 ${day}, ${eventLength.replace(
-      "-",
-      "\\-"
-    )}\n🎤 ${instructor}`,
-    { parse_mode: "MarkdownV2" }
-  );
+  // TODO: Store in firebase?
+  const chatId = "1546842788";
+
+  // Instagram bot doesn't like unescaped characters.
+  const escapedEventLength = eventLength.replace("-", "\\-");
+  const message = `✅ *Registered* ✅\n🏋️ *${eventName}*\n🕣 ${day}, ${escapedEventLength}\n🎤 ${instructor}`;
+
+  bot.telegram.sendMessage(chatId, message, { parse_mode: "MarkdownV2" });
 };

@@ -14,7 +14,7 @@ export const getReebokAccounts = async (
       password: data["password"],
     };
 
-    console.log(`Sending payload to pubsub: ${payload.username}`);
+    console.log(`Sending payload to PubSub: ${payload.username}`);
 
     const outboundMessage = { json: payload, attributes: {} };
     const message = await pubSub
